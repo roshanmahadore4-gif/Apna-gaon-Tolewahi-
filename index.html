@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apna Gaon Tolewahi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Noto+Sans+Devanagari:wght@400;600;700&family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --saffron: #E8650A;
+      --saffron-light: #F5A623;
+      --saffron-pale: #FFF3E0;
+      --green-deep: #2D5016;
+      --green-mid: #4A7C28;
+      --green-light: #7BAF3A;
+      --green-pale: #EEF5E4;
+      --earth: #8B5E3C;
+      --earth-light: #C49A6C;
+      --cream: #FDF8F0;
+      --text-dark: #1A1208;
+      --text-mid: #4A3728;
+      --text-soft: #7A6555;
+      --white: #FFFFFF;
+      --gold: #c9960c;
+      --gold-light: #f0c14b;
+      --shadow: 0 8px 40px rgba(45,80,22,0.13);
+      --shadow-warm: 0 8px 40px rgba(232,101,10,0.13);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background: var(--cream); color: var(--text-dark); overflow-x: hidden; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--green-mid); border-radius: 3px; }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(253,248,240,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--saffron-light);
+      box-shadow: 0 2px 20px rgba(45,80,22,0.10);
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between; height: 68px;
+    }
+    .nav-brand { display: flex; flex-direction: column; line-height: 1.1; }
+    .nav-brand .brand-hi { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 11px; font-weight: 600; color: var(--saffron); letter-spacing: 0.5px; }
+    .nav-brand .brand-en { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 900; color: var(--green-deep); }
+    .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .nav-links a {
+      font-size: 13.5px; font-weight: 700; text-decoration: none; color: var(--text-mid);
+      padding: 8px 16px; border-radius: 24px; transition: all 0.25s ease;
+    }
+    .nav-links a:hover, .nav-links a.active { background: var(--green-deep); color: var(--white); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+    .hamburger span { display: block; width: 24px; height: 2.5px; background: var(--green-deep); border-radius: 2px; transition: all 0.3s; }
+    .mobile-menu {
+      display: none; position: fixed; top: 68px; left: 0; right: 0;
+      background: var(--cream); border-bottom: 2px solid var(--saffron-light);
+      z-index: 999; padding: 16px 24px; flex-direction: column; gap: 8px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 15px; font-weight: 700; text-decoration: none; color: var(--text-mid);
+      padding: 12px 16px; border-radius: 10px; transition: all 0.2s;
+    }
+    .mobile-menu a:hover, .mobile-menu a.active { background: var(--green-deep); color: white; }
+
+    /* ===== HERO ===== */
+    #home {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; padding-top: 68px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 60%, rgba(123,175,58,0.22) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 30%, rgba(232,101,10,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 100%, rgba(45,80,22,0.18) 0%, transparent 60%),
+        linear-gradient(160deg, #FDF8F0 0%, #EEF5E4 40%, #FFF3E0 100%);
+    }
+    .hero-landscape { position: absolute; bottom: 0; left: 0; right: 0; height: 260px; overflow: hidden; }
+    .hero-landscape svg { width: 100%; height: 100%; }
+    .leaf { position: absolute; width: 30px; height: 30px; opacity: 0.18; animation: floatLeaf 8s ease-in-out infinite; }
+    .leaf svg { width: 100%; height: 100%; }
+    .leaf:nth-child(1) { top: 15%; left: 8%; animation-delay: 0s; }
+    .leaf:nth-child(2) { top: 25%; right: 10%; animation-delay: 2s; width: 20px; height: 20px; }
+    .leaf:nth-child(3) { top: 60%; left: 5%; animation-delay: 4s; width: 25px; height: 25px; }
+    .leaf:nth-child(4) { top: 40%; right: 6%; animation-delay: 1.5s; width: 35px; height: 35px; }
+    @keyframes floatLeaf { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-18px) rotate(12deg)} }
+    .hero-content { position: relative; z-index: 2; text-align: center; padding: 0 24px; max-width: 750px; }
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--saffron), var(--saffron-light));
+      color: white; font-family: 'Noto Sans Devanagari', sans-serif;
+      font-size: 12px; font-weight: 600; padding: 6px 20px; border-radius: 24px;
+      margin-bottom: 24px; box-shadow: 0 4px 16px rgba(232,101,10,0.3);
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-title-hi { font-family: 'Noto Sans Devanagari', sans-serif; font-size: clamp(22px,5vw,34px); font-weight: 700; color: var(--saffron); margin-bottom: 10px; animation: fadeUp 0.7s ease 0.1s both; }
+    .hero-title-en { font-family: 'Playfair Display', serif; font-size: clamp(38px,9vw,76px); font-weight: 900; color: var(--green-deep); line-height: 1; margin-bottom: 20px; animation: fadeUp 0.7s ease 0.2s both; text-shadow: 2px 4px 0 rgba(45,80,22,0.08); }
+    .hero-tagline { font-family: 'Noto Sans Devanagari', sans-serif; font-size: clamp(14px,2.5vw,18px); color: var(--text-soft); margin-bottom: 10px; animation: fadeUp 0.7s ease 0.3s both; }
+    .hero-sub { font-size: clamp(13px,2vw,16px); color: var(--text-soft); margin-bottom: 40px; font-style: italic; animation: fadeUp 0.7s ease 0.35s both; }
+    .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; animation: fadeUp 0.7s ease 0.45s both; margin-bottom: 48px; }
+    .btn-primary-hero {
+      font-family: 'Noto Sans Devanagari', sans-serif; font-size: 15px; font-weight: 600;
+      background: linear-gradient(135deg, var(--green-deep), var(--green-mid));
+      color: white; border: none; padding: 14px 32px; border-radius: 50px; cursor: pointer;
+      text-decoration: none; display: inline-block;
+      box-shadow: 0 6px 24px rgba(45,80,22,0.25); transition: all 0.3s;
+    }
+    .btn-primary-hero:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(45,80,22,0.35); }
+    .social-strip { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; animation: fadeUp 0.7s ease 0.55s both; }
+    .social-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: 50px; font-size: 13.5px; font-weight: 700; text-decoration: none; color: white; transition: all 0.3s; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+    .social-btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 8px 24px rgba(0,0,0,0.22); }
+    .btn-yt  { background: linear-gradient(135deg,#FF0000,#CC0000); }
+    .btn-ig  { background: linear-gradient(135deg,#833AB4,#E1306C,#F77737); }
+    .btn-fb  { background: linear-gradient(135deg,#1877F2,#0a5dc2); }
+    .social-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ===== DIVIDER ===== */
+    .divider { height: 3px; background: linear-gradient(90deg, transparent, var(--saffron-light), var(--green-light), transparent); }
+
+    /* ===== SECTIONS ===== */
+    section { padding: 90px 24px; }
+    .section-inner { max-width: 960px; margin: 0 auto; }
+    .section-label { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--saffron); margin-bottom: 12px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(28px,5vw,46px); font-weight: 900; color: var(--green-deep); margin-bottom: 8px; line-height: 1.1; }
+    .section-title-hi { font-family: 'Noto Sans Devanagari', sans-serif; font-size: clamp(20px,3.5vw,30px); font-weight: 700; color: var(--saffron); margin-bottom: 28px; }
+    .title-line { width: 60px; height: 4px; background: linear-gradient(90deg, var(--saffron), var(--green-light)); border-radius: 2px; margin-bottom: 36px; }
+
+    /* ===== ABOUT ===== */
+    #about { background: var(--green-pale); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .about-art { position: relative; display: flex; align-items: center; justify-content: center; }
+    .about-circle {
+      width: 280px; height: 280px; border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, rgba(123,175,58,0.35), rgba(45,80,22,0.55));
+      display: flex; align-items: center; justify-content: center; position: relative;
+      box-shadow: 0 20px 60px rgba(45,80,22,0.2);
+    }
+    .about-circle::before { content:''; position:absolute; inset:-12px; border-radius:50%; border:2px dashed rgba(123,175,58,0.4); animation:rotateSlow 20s linear infinite; }
+    .about-circle::after  { content:''; position:absolute; inset:-28px; border-radius:50%; border:1px dashed rgba(232,101,10,0.25); animation:rotateSlow 30s linear infinite reverse; }
+    @keyframes rotateSlow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    .about-icon { font-size: 72px; filter: drop-shadow(0 4px 12px rgba(45,80,22,0.3)); }
+    .about-text p { font-size: 16px; line-height: 1.85; color: var(--text-mid); margin-bottom: 20px; }
+    .about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 28px; }
+    .feature-card { background: white; border-radius: 14px; padding: 16px; box-shadow: var(--shadow); display: flex; align-items: flex-start; gap: 12px; transition: transform 0.3s; }
+    .feature-card:hover { transform: translateY(-3px); }
+    .feature-icon { font-size: 26px; line-height: 1; flex-shrink: 0; }
+    .feature-card h4 { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 13px; font-weight: 700; color: var(--green-deep); margin-bottom: 3px; }
+    .feature-card p { font-size: 12px; color: var(--text-soft); line-height: 1.5; margin: 0; }
+
+    /* ===== NEWS SECTION ===== */
+    #news { background: var(--cream); }
+    .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 24px; }
+    .news-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.05); transition: transform .25s, box-shadow .25s; animation: cardIn .5s ease both; }
+    .news-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(0,0,0,0.14); }
+    @keyframes cardIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    .news-card-top { background: linear-gradient(135deg, var(--green-deep), var(--green-mid)); padding: 20px 22px 16px; }
+    .news-card.has-photo .news-card-top { border-radius: 0; }
+    .news-category { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold-light); font-weight: 700; margin-bottom: 8px; }
+    .news-card-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: white; font-weight: 700; line-height: 1.3; }
+    .news-card-body { padding: 18px 22px 20px; }
+    .news-card-body p { color: var(--text-soft); font-size: 0.92rem; line-height: 1.7; }
+    .news-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; padding-top: 14px; border-top: 1px solid #eee; }
+    .news-date { font-size: 0.75rem; color: #aaa; font-weight: 600; }
+    .news-share-row {
+      display: flex; align-items: center; gap: 7px; margin-top: 14px;
+      padding-top: 12px; border-top: 1px solid #eee; flex-wrap: wrap;
+    }
+    .news-share-label {
+      font-size: 0.72rem; font-weight: 700; color: var(--text-soft);
+      letter-spacing: 0.5px; margin-right: 2px; flex-shrink: 0;
+    }
+    .direct-share-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 0.76rem; font-weight: 700; padding: 6px 13px; border-radius: 20px;
+      border: none; cursor: pointer; transition: all 0.22s; text-decoration: none;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .direct-share-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+    .direct-share-btn:active { transform: scale(0.96); }
+    .dsb-wa  { background: #25D366; color: white; box-shadow: 0 3px 10px rgba(37,211,102,0.35); }
+    .dsb-fb  { background: #1877F2; color: white; box-shadow: 0 3px 10px rgba(24,119,242,0.35); }
+    .dsb-copy{ background: var(--green-pale); color: var(--green-deep); border: 1.5px solid var(--green-light); box-shadow: none; }
+    .dsb-copy:hover { background: var(--green-light); color: white; }
+    .direct-share-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .share-copied-toast {
+      position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+      background: var(--green-deep); color: white; padding: 10px 24px;
+      border-radius: 24px; font-size: 0.85rem; font-weight: 700; z-index: 9999;
+      box-shadow: 0 4px 20px rgba(45,80,22,0.4); opacity: 0; pointer-events: none;
+      transition: opacity 0.3s; white-space: nowrap;
+    }
+    .share-copied-toast.show { opacity: 1; }
+
+    /* ===== GALLERY (static decorative + dynamic) ===== */
+    #gallery { background: var(--green-pale); }
+    .gallery-static-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin-bottom: 30px;
+    }
+    .gallery-card { border-radius: 16px; overflow: hidden; position: relative; aspect-ratio: 4/3; cursor: pointer; box-shadow: var(--shadow); transition: transform 0.35s, box-shadow 0.35s; }
+    .gallery-card:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 20px 50px rgba(45,80,22,0.18); }
+    .gallery-card:first-child { grid-column: span 2; aspect-ratio: 2/1; }
+    .gal-1 { background: linear-gradient(135deg,#4A7C28 0%,#7BAF3A 40%,#E8650A 100%); }
+    .gal-2 { background: linear-gradient(135deg,#2D5016 0%,#4A7C28 60%,#C49A6C 100%); }
+    .gal-3 { background: linear-gradient(160deg,#8B5E3C 0%,#E8650A 50%,#F5A623 100%); }
+    .gal-4 { background: linear-gradient(135deg,#7BAF3A 0%,#2D5016 100%); }
+    .gal-5 { background: linear-gradient(160deg,#F5A623 0%,#E8650A 60%,#8B5E3C 100%); }
+    .gallery-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 60%); display:flex; align-items:flex-end; padding:18px; opacity:0; transition:opacity .3s; }
+    .gallery-card:hover .gallery-overlay { opacity: 1; }
+    .gallery-label { font-family:'Noto Sans Devanagari',sans-serif; font-size:15px; font-weight:700; color:white; text-shadow:0 2px 8px rgba(0,0,0,0.5); }
+    .gallery-nature { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:48px; opacity:0.3; }
+
+    /* Dynamic photo grid */
+    .photo-section-label {
+      font-family: 'Noto Sans Devanagari', sans-serif; font-size: 14px; font-weight: 700;
+      color: var(--green-deep); margin: 30px 0 16px; border-left: 4px solid var(--saffron); padding-left: 12px;
+    }
+    #imageContainer { display: grid; grid-template-columns: repeat(auto-fill,minmax(240px,1fr)); gap: 18px; }
+    .img-card { border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); position: relative; aspect-ratio: 4/3; background: #ddd; animation: cardIn .5s ease both; cursor: zoom-in; }
+    .img-card img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s; }
+    .img-card:hover img { transform: scale(1.07); }
+    .img-card-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 60%); display:flex; align-items:flex-end; padding:14px; opacity:0; transition:opacity .3s; }
+    .img-card:hover .img-card-overlay { opacity: 1; }
+
+    /* ===== VIDEO SECTION ===== */
+    #videos { background: var(--cream); }
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 20px; }
+    .video-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.06); transition: transform .25s, box-shadow .25s; animation: cardIn .5s ease both; }
+    .video-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(0,0,0,0.14); }
+    .video-thumb-wrap { position: relative; aspect-ratio: 16/9; background: #111; cursor: pointer; overflow: hidden; }
+    .video-thumb-wrap video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .video-play-btn { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.3); transition: background .2s; }
+    .video-play-btn:hover { background: rgba(0,0,0,0.5); }
+    .video-play-btn svg { width: 54px; height: 54px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5)); }
+    .video-info { padding: 14px 16px 16px; }
+    .video-caption { font-size: 0.92rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; line-height: 1.4; }
+    .video-date { font-size: 0.75rem; color: #bbb; font-weight: 600; }
+    .video-delete-btn { display:none; font-size:0.75rem; padding:4px 10px; background:rgba(220,38,38,0.9); color:white; border:none; border-radius:20px; cursor:pointer; font-weight:700; float:right; }
+    .admin-mode .video-delete-btn { display:inline-block; }
+    #videoLightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:999; justify-content:center; align-items:center; padding:20px; }
+    #videoLightbox.open { display:flex; }
+    #videoLightbox video { max-width:92vw; max-height:82vh; border-radius:10px; outline:none; }
+    .vlb-close { position:absolute; top:18px; right:22px; color:white; font-size:2rem; cursor:pointer; width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:rgba(255,255,255,0.12); }
+    .vlb-close:hover { background:rgba(255,255,255,0.25); }
+
+    /* ===== CONTACT ===== */
+    #contact { background: var(--cream); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .address-card { background: white; border-radius: 20px; padding: 36px; box-shadow: var(--shadow); border-top: 4px solid var(--saffron); }
+    .address-card h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 900; color: var(--green-deep); margin-bottom: 20px; }
+    .address-row { display: flex; gap: 14px; margin-bottom: 14px; align-items: flex-start; }
+    .address-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+    .address-detail { font-size: 15px; color: var(--text-mid); line-height: 1.6; }
+    .address-detail strong { color: var(--green-deep); font-weight: 700; }
+    .map-placeholder { background: linear-gradient(135deg,var(--green-pale) 0%,var(--saffron-pale) 100%); border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; border: 2px dashed var(--green-light); text-align: center; box-shadow: var(--shadow); min-height: 280px; }
+    .map-icon { font-size: 56px; margin-bottom: 16px; }
+    .map-placeholder h4 { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--green-deep); margin-bottom: 8px; }
+    .map-placeholder p { font-size: 13px; color: var(--text-soft); line-height: 1.6; }
+    .map-placeholder .location-badge { margin-top: 18px; background: var(--green-deep); color: white; padding: 8px 20px; border-radius: 24px; font-size: 13px; font-weight: 700; }
+    .contact-social { margin-top: 32px; }
+    .contact-social h4 { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 15px; font-weight: 700; color: var(--text-mid); margin-bottom: 14px; }
+    .contact-social-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .social-icon-btn { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all 0.3s; box-shadow: 0 4px 14px rgba(0,0,0,0.15); }
+    .social-icon-btn:hover { transform: translateY(-4px) scale(1.1); }
+    .social-icon-btn svg { width: 20px; height: 20px; }
+
+    /* ===== FOOTER ===== */
+    footer { background: var(--green-deep); color: white; text-align: center; padding: 40px 24px; }
+    .footer-brand { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; margin-bottom: 6px; }
+    .footer-tagline { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 24px; }
+    .footer-social { display: flex; gap: 12px; justify-content: center; margin-bottom: 28px; }
+    .footer-divider { height: 1px; background: rgba(255,255,255,0.15); margin-bottom: 20px; }
+    .footer-copy { font-size: 13px; color: rgba(255,255,255,0.55); }
+    .footer-copy span { color: var(--saffron-light); }
+
+    /* ===== STATS BAR ===== */
+    .stats-bar { background: var(--green-deep); color: white; padding: 36px 24px; }
+    .stats-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: 24px; text-align: center; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; color: var(--gold-light); display: block; }
+    .stat-lbl { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0.75; }
+
+    /* ===== NOTICE BAR ===== */
+    .notice { background: var(--gold); color: var(--green-deep); font-weight: 700; text-align: center; padding: 10px 20px; font-size: 0.88rem; display: none; position: sticky; top: 68px; z-index: 90; }
+
+    /* ===== EMPTY STATE ===== */
+    .empty-state { text-align: center; padding: 50px 20px; color: var(--text-soft); grid-column: 1/-1; }
+    .empty-state .icon { font-size: 3rem; margin-bottom: 12px; }
+
+    /* ===== ADMIN FAB ===== */
+    .admin-fab {
+      position: fixed; bottom: 28px; right: 28px;
+      width: 56px; height: 56px; background: var(--saffron);
+      color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; font-weight: 900; cursor: pointer;
+      box-shadow: 0 6px 24px rgba(232,101,10,0.4); z-index: 200;
+      transition: transform .2s, background .2s; user-select: none;
+    }
+    .admin-fab:hover { transform: scale(1.1) rotate(45deg); background: var(--saffron-light); }
+
+    /* ===== ADMIN MODAL ===== */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 300; justify-content: center; align-items: center; padding: 20px; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: white; border-radius: 20px; width: 100%; max-width: 420px; overflow: hidden; box-shadow: 0 20px 80px rgba(0,0,0,0.4); animation: modalIn .3s ease; }
+    @keyframes modalIn { from{opacity:0;transform:scale(.95) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
+    .modal-header { background: linear-gradient(135deg, var(--green-deep), var(--green-mid)); padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; }
+    .modal-header h2 { font-family: 'Playfair Display', serif; color: white; font-size: 1.3rem; }
+    .modal-close { color: rgba(255,255,255,0.7); font-size: 1.4rem; cursor: pointer; padding: 4px; transition: color .2s; }
+    .modal-close:hover { color: white; }
+    .modal-body { padding: 24px 28px; }
+    .tabs { display: flex; gap: 4px; background: #f0f0f0; border-radius: 10px; padding: 4px; margin-bottom: 24px; }
+    .tab-btn { flex: 1; padding: 9px; border: none; background: transparent; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; color: var(--text-soft); transition: all .2s; font-family: 'Nunito', sans-serif; }
+    .tab-btn.active { background: var(--green-deep); color: white; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-soft); margin-bottom: 6px; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px 14px; border: 2px solid #e8e8e8; border-radius: 10px; font-size: 0.95rem; font-family: 'Lato', sans-serif; color: var(--text-dark); outline: none; transition: border-color .2s; }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--green-mid); }
+    .form-group textarea { min-height: 100px; resize: vertical; }
+    .btn { width: 100%; padding: 12px; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 700; cursor: pointer; font-family: 'Lato', sans-serif; transition: all .2s; letter-spacing: 0.5px; }
+    .btn-g { background: var(--green-deep); color: white; }
+    .btn-g:hover { background: var(--green-mid); }
+    .btn-r { background: #dc2626; color: white; margin-top: 8px; }
+    .btn-r:hover { background: #b91c1c; }
+    .login-hint { text-align: center; font-size: 0.78rem; color: #bbb; margin-top: 10px; }
+
+    /* Upload area */
+    .upload-area {
+      border: 2.5px dashed var(--green-mid); border-radius: 14px; padding: 28px 16px;
+      text-align: center; cursor: pointer; background: var(--green-pale);
+      transition: background .2s, border-color .2s;
+    }
+    .upload-area:hover { background: #d8edbe; border-color: var(--green-deep); }
+    .upload-icon { font-size: 2.2rem; margin-bottom: 8px; }
+    .upload-text { font-size: 0.95rem; font-weight: 700; color: var(--green-deep); margin-bottom: 4px; }
+    .upload-sub { font-size: 0.78rem; color: var(--text-soft); }
+
+    /* Delete buttons (admin mode only) */
+    .delete-news-btn, .delete-img-btn { display: none; font-size: 0.75rem; padding: 5px 12px; background: rgba(220,38,38,0.9); color: white; border: none; border-radius: 20px; cursor: pointer; font-family: 'Lato', sans-serif; font-weight: 700; }
+    .admin-mode .delete-news-btn, .admin-mode .delete-img-btn { display: inline-flex; align-items: center; gap: 4px; }
+
+    /* ===== LIGHTBOX ===== */
+    #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 999; justify-content: center; align-items: center; padding: 20px; }
+    #lightbox.open { display: flex; }
+    #lightbox img { max-width: 90vw; max-height: 85vh; border-radius: 8px; box-shadow: 0 0 60px rgba(0,0,0,0.8); animation: popIn .3s ease; }
+    @keyframes popIn { from{opacity:0;transform:scale(.9)} to{opacity:1;transform:scale(1)} }
+    .lb-close { position: absolute; top: 20px; right: 24px; color: white; font-size: 2rem; cursor: pointer; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255,255,255,0.1); }
+    .lb-close:hover { background: rgba(255,255,255,0.25); }
+
+    /* ===== SCROLL REVEAL ===== */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .about-grid { grid-template-columns: 1fr; gap: 36px; }
+      .about-art { display: none; }
+      .gallery-static-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-card:first-child { grid-column: span 2; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .social-strip { gap: 10px; }
+      .social-btn { padding: 9px 16px; font-size: 12.5px; }
+      .about-features { grid-template-columns: 1fr; }
+      section { padding: 60px 20px; }
+    }
+    @media (max-width: 480px) {
+      .gallery-static-grid { grid-template-columns: 1fr; }
+      .gallery-card:first-child { grid-column: span 1; aspect-ratio: 4/3; }
+      .hero-title-en { font-size: 34px; }
+    }
+    /* ===== LANGUAGE SWITCHER ===== */
+    .lang-dropdown { position: relative; }
+    .lang-btn {
+      font-size: 13px; font-weight: 700; background: var(--green-pale); color: var(--green-deep);
+      border: 2px solid var(--green-light); border-radius: 24px; padding: 7px 14px; cursor: pointer;
+      transition: all .2s; font-family: 'Lato', sans-serif; display: flex; align-items: center; gap: 4px;
+    }
+    .lang-btn:hover { background: var(--green-deep); color: white; border-color: var(--green-deep); }
+    .lang-menu {
+      display: none; position: absolute; top: calc(100% + 8px); right: 0; background: white;
+      border: 2px solid var(--green-light); border-radius: 14px; overflow: hidden; z-index: 500;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15); min-width: 130px;
+    }
+    .lang-menu.open { display: block; }
+    .lang-menu button {
+      display: block; width: 100%; padding: 11px 18px; border: none; background: white;
+      font-size: 13.5px; font-weight: 700; color: var(--text-mid); cursor: pointer; text-align: left;
+      font-family: 'Lato', sans-serif; transition: background .15s;
+    }
+    .lang-menu button:hover { background: var(--green-pale); color: var(--green-deep); }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <span class="brand-hi">अपना गाँव</span>
+      <span class="brand-en">Tolewahi</span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home"    class="active" onclick="setActive(this)">Home</a></li>
+      <li><a href="#about"   onclick="setActive(this)">About</a></li>
+      <li><a href="#news"    onclick="setActive(this)">News</a></li>
+      <li><a href="#gallery" onclick="setActive(this)">Gallery</a></li>
+      <li><a href="#videos" onclick="setActive(this)">Videos</a></li>
+      <li><a href="#contact" onclick="setActive(this)">Contact</a></li>
+      <li class="lang-dropdown">
+        <button class="lang-btn" onclick="toggleLang()">🌐 <span id="langLabel">EN</span> ▾</button>
+        <div class="lang-menu" id="langMenu">
+          <button onclick="setLang('en')">🇬🇧 English</button>
+          <button onclick="setLang('mr')">🇮🇳 मराठी</button>
+          <button onclick="setLang('hi')">🇮🇳 हिंदी</button>
+        </div>
+      </li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home"    onclick="closeMobile(this)">🏠 Home</a>
+  <a href="#about"   onclick="closeMobile(this)">ℹ️ About</a>
+  <a href="#news"    onclick="closeMobile(this)">📰 News</a>
+  <a href="#gallery" onclick="closeMobile(this)">🖼️ Gallery</a>
+  <a href="#videos" onclick="closeMobile(this)">🎬 Videos</a>
+  <a href="#contact" onclick="closeMobile(this)">📍 Contact</a>
+  <div style="display:flex;gap:8px;padding:8px 0">
+    <button onclick="setLang('en')" style="flex:1;padding:10px;border:2px solid var(--green-mid);background:white;border-radius:10px;font-weight:700;cursor:pointer;font-size:13px">🇬🇧 English</button>
+    <button onclick="setLang('mr')" style="flex:1;padding:10px;border:2px solid var(--green-mid);background:white;border-radius:10px;font-weight:700;cursor:pointer;font-size:13px">मराठी</button>
+    <button onclick="setLang('hi')" style="flex:1;padding:10px;border:2px solid var(--green-mid);background:white;border-radius:10px;font-weight:700;cursor:pointer;font-size:13px">हिंदी</button>
+  </div>
+</div>
+
+<!-- ADMIN NOTICE BAR -->
+<div class="notice" id="noticeBar">🔓 Admin Mode Active — Delete buttons are now visible on cards.</div>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="leaf" style="top:18%;left:7%"><svg viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="20" rx="12" ry="18" fill="#4A7C28" transform="rotate(-30 20 20)"/></svg></div>
+  <div class="leaf" style="top:28%;right:9%"><svg viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="20" rx="10" ry="15" fill="#E8650A" transform="rotate(20 20 20)"/></svg></div>
+  <div class="leaf" style="top:55%;left:4%"><svg viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="20" rx="9" ry="16" fill="#7BAF3A" transform="rotate(45 20 20)"/></svg></div>
+  <div class="leaf" style="top:38%;right:5%"><svg viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="20" rx="13" ry="19" fill="#F5A623" transform="rotate(-15 20 20)"/></svg></div>
+  <div class="hero-landscape">
+    <svg viewBox="0 0 1440 260" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="hillGrad1" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#4A7C28"/><stop offset="100%" style="stop-color:#2D5016"/></linearGradient>
+        <linearGradient id="hillGrad2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#7BAF3A"/><stop offset="100%" style="stop-color:#4A7C28"/></linearGradient>
+      </defs>
+      <path d="M0 260 L0 140 Q180 80 360 130 Q540 175 720 100 Q900 30 1080 120 Q1260 200 1440 110 L1440 260 Z" fill="url(#hillGrad1)" opacity="0.35"/>
+      <path d="M0 260 L0 190 Q200 130 400 175 Q600 215 800 150 Q1000 90 1200 170 Q1350 220 1440 165 L1440 260 Z" fill="url(#hillGrad2)" opacity="0.45"/>
+      <path d="M0 260 L0 230 Q360 200 720 220 Q1080 238 1440 215 L1440 260 Z" fill="#2D5016" opacity="0.25"/>
+      <circle cx="1100" cy="70" r="42" fill="#F5A623" opacity="0.18"/>
+      <circle cx="1100" cy="70" r="28" fill="#E8650A" opacity="0.15"/>
+      <g opacity="0.3">
+        <rect x="200" y="175" width="8" height="30" fill="#2D5016"/><polygon points="204,135 188,180 220,180" fill="#4A7C28"/><polygon points="204,150 190,185 218,185" fill="#7BAF3A"/>
+        <rect x="380" y="165" width="7" height="25" fill="#2D5016"/><polygon points="383,128 369,170 397,170" fill="#4A7C28"/>
+        <rect x="1050" y="155" width="8" height="28" fill="#2D5016"/><polygon points="1054,115 1038,160 1070,160" fill="#4A7C28"/><polygon points="1054,130 1040,165 1068,165" fill="#7BAF3A"/>
+        <rect x="1250" y="178" width="7" height="22" fill="#2D5016"/><polygon points="1253,140 1241,182 1265,182" fill="#4A7C28"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">🌿 Navnit Nikure Presents</div>
+    <div class="hero-title-hi">स्वागत है</div>
+    <div class="hero-title-en">Apna Gaon<br>Tolewahi</div>
+    <div class="hero-tagline">हमारा गाँव, हमारी पहचान</div>
+    <div class="hero-sub">A proud digital home of our beloved village — Chandrapur, Maharashtra</div>
+    <div class="hero-actions">
+      <a href="#about" class="btn-primary-hero">हमारे बारे में जानें →</a>
+      <a href="#news" class="btn-primary-hero" style="background:linear-gradient(135deg,var(--saffron),var(--saffron-light))">📰 Latest News</a>
+    </div>
+    <div class="social-strip">
+      <a href="https://youtube.com/@navnitnikure?si=l0TBpplNdeRqbjTh" target="_blank" class="social-btn btn-yt">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        YouTube
+      </a>
+      <a href="https://www.instagram.com/9nit_nikure_104?igsh=cjBnaHh2dnF2dGky" target="_blank" class="social-btn btn-ig">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+        Instagram
+      </a>
+      <a href="https://www.facebook.com/navanit.nikure.10" target="_blank" class="social-btn btn-fb">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Facebook
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- IMAGE SLIDER (Top) -->
+<div id="heroSlider" style="display:none;position:relative;width:100%;overflow:hidden;background:#111">
+  <div id="sliderTrack" style="display:flex;transition:transform 0.5s ease"></div>
+  <button onclick="sliderPrev()" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.55);color:white;border:none;border-radius:50%;width:38px;height:38px;font-size:1.4rem;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center">‹</button>
+  <button onclick="sliderNext()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.55);color:white;border:none;border-radius:50%;width:38px;height:38px;font-size:1.4rem;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center">›</button>
+  <div id="sliderDots" style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:10;flex-wrap:wrap;justify-content:center;max-width:90%"></div>
+  <div id="sliderCount" style="position:absolute;top:10px;right:14px;background:rgba(0,0,0,0.5);color:white;font-size:0.75rem;font-weight:700;padding:3px 10px;border-radius:20px;z-index:10"></div>
+</div>
+
+<div class="divider"></div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div><span class="stat-num" id="statNews">0</span><span class="stat-lbl">News Posts</span></div>
+    <div><span class="stat-num" id="statPhotos">0</span><span class="stat-lbl">Photos</span></div>
+    <div><span class="stat-num">1</span><span class="stat-lbl">Village</span></div>
+    <div><span class="stat-num">∞</span><span class="stat-lbl">Memories</span></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-art reveal">
+        <div class="about-circle"><div class="about-icon">🌾</div></div>
+      </div>
+      <div class="about-text">
+        <div class="reveal">
+          <span class="section-label">Our Story</span>
+          <div class="section-title">About Us</div>
+          <div class="section-title-hi">हमारे बारे में</div>
+          <div class="title-line"></div>
+        </div>
+        <div class="reveal">
+          <p><strong>Apna Gaon Tolewahi</strong> is a website dedicated to showcasing the beauty, culture, and community spirit of our village. This platform is created by <strong>Navnit Nikure</strong> to connect villagers, share news, and celebrate our roots.</p>
+          <p>हमारा उद्देश्य है कि हमारे गाँव की परम्पराएं, संस्कृति और प्राकृतिक सौंदर्य को डिजिटल रूप में संरक्षित करें। हर घर, हर गली, हर त्योहार की कहानी यहाँ जीवित है।</p>
+        </div>
+        <div class="about-features reveal">
+          <div class="feature-card"><div class="feature-icon">🤝</div><div><h4>एकता</h4><p>Community bonding & togetherness</p></div></div>
+          <div class="feature-card"><div class="feature-icon">🌿</div><div><h4>प्रकृति</h4><p>Natural beauty of our village</p></div></div>
+          <div class="feature-card"><div class="feature-icon">🪔</div><div><h4>संस्कृति</h4><p>Local culture & traditions</p></div></div>
+          <div class="feature-card"><div class="feature-icon">📢</div><div><h4>खबरें</h4><p>Village news & updates</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- NEWS -->
+<section id="news">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;margin-bottom:50px">
+      <span class="section-label">ताज़ा खबर</span>
+      <div class="section-title">Village News</div>
+      <div class="section-title-hi">गाँव की खबरें</div>
+      <div class="title-line" style="margin:0 auto"></div>
+    </div>
+    <div class="news-grid reveal" id="newsContainer"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMMUNITY PHOTOS (News च्या खाली) -->
+<section id="communityPhotos" style="background:var(--saffron-pale);padding:70px 24px">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;margin-bottom:40px">
+      <span class="section-label">आमचे फोटो</span>
+      <div class="section-title">Community Photos</div>
+      <div class="section-title-hi">📸 गावातील छायाचित्रे</div>
+      <div class="title-line" style="margin:0 auto"></div>
+    </div>
+    <div class="photo-section-label" id="photoLabel" style="display:none">📸 नवीन फोटो</div>
+    <div id="imageContainer"></div>
+    <div id="noPhotosMsg" style="text-align:center;padding:40px 20px;color:var(--text-soft)">
+      <div style="font-size:3rem;margin-bottom:12px">🖼️</div>
+      <p style="font-size:1rem">अजून कोणताही फोटो नाही. Admin panel मधून photo add करा!</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- VIDEOS (Community Photos च्या खाली) -->
+<section id="videos">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;margin-bottom:50px">
+      <span class="section-label">🎬 आमचे व्हिडिओ</span>
+      <div class="section-title">Videos</div>
+      <div class="section-title-hi">गावातील व्हिडिओ</div>
+      <div class="title-line" style="margin:0 auto"></div>
+    </div>
+    <div class="video-grid reveal" id="videoContainer"></div>
+    <div id="noVideosMsg" style="text-align:center;padding:40px 20px;color:var(--text-soft)">
+      <div style="font-size:3rem;margin-bottom:12px">🎬</div>
+      <p style="font-size:1rem">अजून कोणताही व्हिडिओ नाही. Admin panel मधून video add करा!</p>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO LIGHTBOX -->
+<div id="videoLightbox" onclick="closeVideoLightbox()">
+  <div class="vlb-close" onclick="closeVideoLightbox()">✕</div>
+  <video id="lbVideo" controls playsinline></video>
+</div>
+
+<div class="divider"></div>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;margin-bottom:50px">
+      <span class="section-label">Our Village</span>
+      <div class="section-title">Gallery</div>
+      <div class="section-title-hi">हमारा गाँव</div>
+      <div class="title-line" style="margin:0 auto"></div>
+    </div>
+    <!-- Static decorative grid -->
+    <div class="gallery-static-grid reveal">
+      <div class="gallery-card gal-1"><div class="gallery-nature">🌄</div><div class="gallery-overlay"><span class="gallery-label">🌅 सुबह की सुनहरी धूप</span></div></div>
+      <div class="gallery-card gal-2"><div class="gallery-nature">🌿</div><div class="gallery-overlay"><span class="gallery-label">🌿 हरे भरे खेत</span></div></div>
+      <div class="gallery-card gal-3"><div class="gallery-nature">🪔</div><div class="gallery-overlay"><span class="gallery-label">🎉 त्योहार</span></div></div>
+      <div class="gallery-card gal-4"><div class="gallery-nature">🌾</div><div class="gallery-overlay"><span class="gallery-label">🌾 फसल</span></div></div>
+      <div class="gallery-card gal-5"><div class="gallery-nature">🌺</div><div class="gallery-overlay"><span class="gallery-label">🌺 गाँव की सुंदरता</span></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section id="contact">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;margin-bottom:50px">
+      <span class="section-label">Find Us</span>
+      <div class="section-title">Our Address</div>
+      <div class="section-title-hi">पता</div>
+      <div class="title-line" style="margin:0 auto"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="address-card">
+          <h3>📍 Tolewahi Village</h3>
+          <div class="address-row"><div class="address-icon">🏡</div><div class="address-detail"><strong>At:</strong> Tolewati</div></div>
+          <div class="address-row"><div class="address-icon">📮</div><div class="address-detail"><strong>Post:</strong> Chiroli</div></div>
+          <div class="address-row"><div class="address-icon">🗺️</div><div class="address-detail"><strong>Taluka:</strong> Mul</div></div>
+          <div class="address-row"><div class="address-icon">🏛️</div><div class="address-detail"><strong>District:</strong> Chandrapur</div></div>
+          <div class="address-row"><div class="address-icon">🇮🇳</div><div class="address-detail"><strong>State:</strong> Maharashtra, India</div></div>
+          <div class="contact-social">
+            <h4>हमें फॉलो करें / Follow Us:</h4>
+            <div class="contact-social-btns">
+              <a href="https://youtube.com/@navnitnikure?si=l0TBpplNdeRqbjTh" target="_blank" class="social-icon-btn btn-yt" title="YouTube"><svg viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+              <a href="https://www.instagram.com/9nit_nikure_104?igsh=cjBnaHh2dnF2dGky" target="_blank" class="social-icon-btn btn-ig" title="Instagram"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></a>
+              <a href="https://www.facebook.com/navanit.nikure.10" target="_blank" class="social-icon-btn btn-fb" title="Facebook"><svg viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="map-placeholder">
+          <div class="map-icon">🗺️</div>
+          <h4>Tolewahi, Chandrapur</h4>
+          <p>At Tolewati, Post Chiroli,<br/>Taluka Mul, District Chandrapur,<br/>Maharashtra, India</p>
+          <div class="location-badge">📍 Chandrapur, Maharashtra</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">🌿 Apna Gaon Tolewahi</div>
+  <div class="footer-tagline">हमारा गाँव, हमारी पहचान — Chandrapur, Maharashtra</div>
+  <div class="footer-social">
+    <a href="https://youtube.com/@navnitnikure?si=l0TBpplNdeRqbjTh" target="_blank" class="social-icon-btn btn-yt" title="YouTube"><svg viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+    <a href="https://www.instagram.com/9nit_nikure_104?igsh=cjBnaHh2dnF2dGky" target="_blank" class="social-icon-btn btn-ig" title="Instagram"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></a>
+    <a href="https://www.facebook.com/navanit.nikure.10" target="_blank" class="social-icon-btn btn-fb" title="Facebook"><svg viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-copy">© 2024 <span>Apna Gaon Tolewahi</span> | Created with ❤️ by <span>Navnit Nikure</span> | Chandrapur, Maharashtra</div>
+</footer>
+
+<!-- ADMIN FAB -->
+<div class="admin-fab" onclick="openAdmin()" title="Admin Panel">+</div>
+
+<!-- ADMIN MODAL -->
+<div class="modal-overlay" id="adminModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle">Admin Login</h2>
+      <span class="modal-close" onclick="closeAdmin()">✕</span>
+    </div>
+    <div class="modal-body">
+      <div id="loginPanel">
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="passInput" placeholder="Enter password" onkeydown="if(event.key==='Enter')login()">
+        </div>
+        <button class="btn btn-g" onclick="login()">🔓 Login</button>
+      </div>
+      <div id="adminPanel" style="display:none">
+        <div style="background:linear-gradient(135deg,#dcfce7,#d1fae5);border:1.5px solid #86efac;border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:0.78rem;color:#166534;font-weight:700;line-height:1.5">
+          🌐 <strong>Live Website:</strong> तुम्ही add केलेले News, Photos आणि Slider images तुमच्या browser मध्ये लगेच public ला दिसतात. Website share केल्यावर सर्वांना दिसेल!
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab('newsTab',this)">📰 News</button>
+          <button class="tab-btn" onclick="switchTab('imgTab',this)">🖼 Photo</button>
+          <button class="tab-btn" onclick="switchTab('videoTab',this)">🎬 Video</button>
+          <button class="tab-btn" onclick="switchTab('sliderTab',this)">🎠 Slider</button>
+        </div>
+        <div id="newsTab" class="tab-panel active">
+          <div class="form-group">
+            <label>Category</label>
+            <select id="newsCategory">
+              <option>📢 Announcement</option><option>🎉 Event</option><option>🏗 Development</option>
+              <option>🌾 Agriculture</option><option>📚 Education</option><option>🏥 Health</option><option>🌟 Achievement</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Title</label><input id="newsTitle" placeholder="News headline..."></div>
+          <div class="form-group"><label>Content</label><textarea id="newsContent" placeholder="Write the news here..."></textarea></div>
+          <div class="form-group">
+            <label>📷 Photo (optional)</label>
+            <div style="font-size:0.72rem;color:var(--saffron);font-weight:700;margin-bottom:8px">💡 News सोबत photo attach करा (optional)</div>
+            <div style="display:flex;gap:10px;margin-bottom:8px">
+              <button type="button" class="btn btn-g" style="flex:1;padding:10px 8px;font-size:0.82rem" onclick="document.getElementById('newsPhotoInput').click()">🖼️ Gallery</button>
+              <button type="button" class="btn" style="flex:1;padding:10px 8px;font-size:0.82rem;background:var(--saffron);color:white" onclick="document.getElementById('newsPhotoInputCamera').click()">📷 Camera</button>
+            </div>
+            <input type="file" id="newsPhotoInput" accept="image/*" style="display:none" onchange="handleNewsPhoto(this)">
+            <input type="file" id="newsPhotoInputCamera" accept="image/*" capture="environment" style="display:none" onchange="handleNewsPhoto(this)">
+            <div id="newsPhotoPreviewWrap" style="display:none;margin-top:10px;text-align:center;position:relative">
+              <img id="newsPhotoPreview" src="" alt="Preview" style="max-width:100%;max-height:140px;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.15)">
+              <button onclick="clearNewsPhoto()" style="position:absolute;top:4px;right:4px;background:rgba(220,38,38,0.9);color:white;border:none;border-radius:50%;width:24px;height:24px;cursor:pointer;font-size:0.75rem;font-weight:700">✕</button>
+              <div style="margin-top:6px;font-size:0.75rem;color:#888" id="newsPhotoName"></div>
+            </div>
+          </div>
+          <button class="btn btn-g" onclick="addNews()">✓ Publish News</button>
+          <button class="btn btn-r" onclick="logout()">🔒 Logout</button>
+        </div>
+        <div id="imgTab" class="tab-panel">
+          <div class="form-group">
+            <label>📷 Photo निवडा</label>
+            <div style="font-size:0.72rem;color:var(--saffron);font-weight:700;margin-bottom:8px">💡 एकाच वेळी अनेक photos निवडा!</div>
+            <div style="display:flex;gap:10px;margin-bottom:10px">
+              <button type="button" class="btn btn-g" style="flex:1;padding:12px 8px;font-size:0.85rem" onclick="document.getElementById('imgFileInput').click()">🖼️ Gallery (Multiple)</button>
+              <button type="button" class="btn" style="flex:1;padding:12px 8px;font-size:0.85rem;background:var(--saffron);color:white" onclick="openCamera()">📷 Camera</button>
+            </div>
+            <input type="file" id="imgFileInputCamera" accept="image/*" capture="environment" style="display:none" onchange="handleImageFile(this)">
+            <input type="file" id="imgFileInput" accept="image/*" multiple style="display:none" onchange="handleImageFile(this)">
+            <input type="file" id="imgFileInputSlider" accept="image/*" multiple style="display:none" onchange="handleSliderFile(this)">
+            <div id="imgPreviewWrap" style="display:none;margin-top:12px;text-align:center">
+              <img id="imgPreview" src="" alt="Preview" style="max-width:100%;max-height:180px;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.15)">
+              <div style="margin-top:8px;font-size:0.78rem;color:#888" id="imgFileName"></div>
+            </div>
+          </div>
+          <div class="form-group"><label>Caption (optional)</label><input id="imgCaption" placeholder="Photo बद्दल लिहा..."></div>
+          <button class="btn btn-g" id="addPhotoBtn" onclick="addImage()" disabled style="opacity:0.5">📸 Photo Add करा</button>
+          <button class="btn btn-r" onclick="logout()">🔒 Logout</button>
+        </div>
+        <div id="videoTab" class="tab-panel">
+          <div class="form-group">
+            <label>🎬 Video निवडा (Mobile Gallery)</label>
+            <div style="font-size:0.72rem;color:var(--saffron);font-weight:700;margin-bottom:8px">💡 Mobile gallery मधून video निवडा!</div>
+            <div style="display:flex;gap:10px;margin-bottom:10px">
+              <button type="button" class="btn btn-g" style="flex:1;padding:12px 8px;font-size:0.85rem" onclick="document.getElementById('videoFileInput').click()">📁 Gallery Video</button>
+              <button type="button" class="btn" style="flex:1;padding:12px 8px;font-size:0.85rem;background:var(--saffron);color:white" onclick="document.getElementById('videoFileInputCamera').click()">📷 Camera Record</button>
+            </div>
+            <input type="file" id="videoFileInput" accept="video/*" style="display:none" onchange="handleVideoFile(this)">
+            <input type="file" id="videoFileInputCamera" accept="video/*" capture="environment" style="display:none" onchange="handleVideoFile(this)">
+            <div id="videoPreviewWrap" style="display:none;margin-top:12px;text-align:center">
+              <video id="videoPreview" style="max-width:100%;max-height:180px;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.15)" controls playsinline muted></video>
+              <div style="margin-top:8px;font-size:0.78rem;color:#888" id="videoFileName"></div>
+            </div>
+          </div>
+          <div class="form-group"><label>Caption (optional)</label><input id="videoCaption" placeholder="Video बद्दल लिहा..."></div>
+          <div id="videoUploadProgress" style="display:none;margin-bottom:10px">
+            <div style="background:#e8f5e9;border-radius:8px;overflow:hidden;height:8px">
+              <div id="videoProgressBar" style="background:var(--green-deep);height:100%;width:0%;transition:width 0.3s"></div>
+            </div>
+            <div id="videoProgressText" style="font-size:0.78rem;color:var(--green-deep);font-weight:700;text-align:center;margin-top:4px">0%</div>
+          </div>
+          <button class="btn btn-g" id="addVideoBtn" onclick="addVideo()" disabled style="opacity:0.5">🎬 Video Add करा</button>
+          <button class="btn btn-r" onclick="logout()">🔒 Logout</button>
+        </div>
+        <div id="sliderTab" class="tab-panel">
+          <div class="form-group">
+            <label>🎠 Slider साठी Photo निवडा</label>
+            <div style="font-size:0.72rem;color:var(--saffron);font-weight:700;margin-bottom:8px">💡 एकाच वेळी अनेक photos निवडा!</div>
+            <div style="display:flex;gap:10px;margin-bottom:10px">
+              <button type="button" class="btn btn-g" style="flex:1;padding:12px 8px;font-size:0.85rem" onclick="document.getElementById('imgFileInputSlider').click()">🖼️ Gallery (Multiple)</button>
+              <button type="button" class="btn" style="flex:1;padding:12px 8px;font-size:0.85rem;background:var(--saffron);color:white" onclick="openCameraSlider()">📷 Camera</button>
+            </div>
+            <input type="file" id="imgFileInputSliderCamera" accept="image/*" capture="environment" style="display:none" onchange="handleSliderFile(this)">
+            <div id="sliderPreviewWrap" style="display:none;margin-top:12px;text-align:center">
+              <img id="sliderPreview" src="" alt="Preview" style="max-width:100%;max-height:150px;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.15)">
+              <div style="margin-top:6px;font-size:0.78rem;color:#888" id="sliderFileName"></div>
+            </div>
+          </div>
+          <div class="form-group"><label>Caption (optional)</label><input id="sliderCaption" placeholder="Slider photo बद्दल लिहा..."></div>
+          <button class="btn btn-g" id="addSliderBtn" onclick="addSliderImage()" disabled style="opacity:0.5">🎠 Slider मध्ये Add करा</button>
+          <div style="margin-top:16px;font-size:0.8rem;color:var(--text-soft);font-weight:700">📋 सध्याचे Slider Photos:</div>
+          <div id="sliderAdminList" style="margin-top:8px;max-height:200px;overflow-y:auto"></div>
+          <button class="btn" onclick="if(confirm('सर्व slider photos delete करायचे?')){saveSliders([]);renderSlider();renderSliderAdminList();}" style="margin-top:6px;background:#7f1d1d;color:white;font-size:0.8rem;padding:8px">🗑️ सर्व Slider Photos Delete करा</button>
+          <button class="btn btn-r" onclick="logout()" style="margin-top:8px">🔒 Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <div class="lb-close">✕</div>
+  <img id="lbImg" src="" alt="">
+</div>
+
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+  // ===== FIREBASE SETUP =====
+  const firebaseConfig = {
+    apiKey: "AIzaSyCYJHJLk6XuTr0GUTHpEuL5eH_RgOMkOsg",
+    authDomain: "apna-gaon-tolewahi.firebaseapp.com",
+    projectId: "apna-gaon-tolewahi",
+    storageBucket: "apna-gaon-tolewahi.firebasestorage.app",
+    messagingSenderId: "286129826961",
+    appId: "1:286129826961:web:a5925ad98b06252cd22330"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // ===== CLOUDINARY SETUP (Photos साठी - 100% Free) =====
+  const CLOUDINARY_CLOUD = 'djdpovcmb';
+  const CLOUDINARY_PRESET = 'smm0tqri';
+
+  async function uploadToCloudinary(dataUrl) {
+    const formData = new FormData();
+    formData.append('file', dataUrl);
+    formData.append('upload_preset', CLOUDINARY_PRESET);
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, {
+      method: 'POST',
+      body: formData
+    });
+    if (!res.ok) throw new Error('Cloudinary upload failed');
+    const data = await res.json();
+    return { url: data.secure_url, publicId: data.public_id };
+  }
+
+  // ===== GLOBAL STATE =====
+  window.isAdmin = false;
+  window.currentLang = 'en';
+  window.sliderIndex = 0;
+  window.sliderTimer = null;
+  let allNews = [];
+  let allImgs = [];
+  let allSliders = [];
+  let allVideos = [];
+
+  // ===== UTILS =====
+  const fmtDate = iso => new Date(iso).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+  const escHtml = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+  function showLoading(msg) {
+    let el = document.getElementById('firebaseLoading');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'firebaseLoading';
+      el.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(45,80,22,0.92);color:white;padding:12px 24px;border-radius:30px;font-size:0.88rem;font-weight:700;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,0.3)';
+      document.body.appendChild(el);
+    }
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+  function hideLoading() {
+    const el = document.getElementById('firebaseLoading');
+    if (el) el.style.display = 'none';
+  }
+  function showToast(msg, isError) {
+    let el = document.getElementById('toastMsg');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'toastMsg';
+      el.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:30px;font-size:0.88rem;font-weight:700;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:opacity 0.4s';
+      document.body.appendChild(el);
+    }
+    el.style.background = isError ? '#dc2626' : '#2D5016';
+    el.style.color = 'white';
+    el.textContent = msg;
+    el.style.opacity = '1';
+    el.style.display = 'block';
+    setTimeout(() => { el.style.opacity = '0'; setTimeout(() => el.style.display='none', 400); }, 3000);
+  }
+
+  // ===== REAL-TIME LISTENERS (सर्वांना live दिसेल) =====
+  function startRealtimeListeners() {
+    // News listener
+    const newsQ = db.collection('news').orderBy('date', 'desc');
+    newsQ.onSnapshot((snap) => {
+      allNews = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderNews();
+    }, (err) => {
+      console.error('News listener error:', err);
+      renderNews();
+    });
+
+    // Images listener
+    const imgsQ = db.collection('images').orderBy('date', 'desc');
+    imgsQ.onSnapshot((snap) => {
+      allImgs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderImages();
+    }, (err) => {
+      console.error('Images listener error:', err);
+      renderImages();
+    });
+
+    // Videos listener
+    const videosQ = db.collection('videos').orderBy('date', 'desc');
+    videosQ.onSnapshot((snap) => {
+      allVideos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderVideos();
+    }, (err) => {
+      console.error('Videos listener error:', err);
+      renderVideos();
+    });
+
+    // Slider listener
+    const sliderQ = db.collection('slider').orderBy('date', 'asc');
+    sliderQ.onSnapshot((snap) => {
+      allSliders = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderSlider();
+    }, (err) => {
+      console.error('Slider listener error:', err);
+      renderSlider();
+    });
+  }
+
+  // ===== LANGUAGE =====
+  const translations = {
+    en: {
+      navHome:'Home', navAbout:'About', navNews:'News', navGallery:'Gallery', navContact:'Contact',
+      heroTitle:'Apna Gaon<br>Tolewahi', heroTagline:'Our village, our identity',
+      heroBadge:'🌿 Navnit Nikure Presents', heroSub:'A proud digital home of our beloved village — Chandrapur, Maharashtra',
+      heroBtn1:'Know About Us →', heroBtn2:'📰 Latest News',
+      aboutLabel:'Our Story', aboutTitle:'About Us', aboutTitleHi:'हमारे बारे में',
+      newsLabel:'Latest News', newsTitle:'Village News', newsTitleHi:'गाँव की खबरें',
+      galleryLabel:'Our Village', galleryTitle:'Gallery', galleryTitleHi:'हमारा गाँव',
+      contactLabel:'Find Us', contactTitle:'Our Address', contactTitleHi:'पता',
+      noNews:'No news yet. Admin can add the first post!', noPhotos:'No photos yet. Add from admin panel!'
+    },
+    mr: {
+      navHome:'मुख्यपृष्ठ', navAbout:'आमच्याबद्दल', navNews:'बातम्या', navGallery:'गॅलरी', navContact:'संपर्क',
+      heroTitle:'आपलं गाव<br>तोलेवाही', heroTagline:'आपलं गाव, आपली ओळख',
+      heroBadge:'🌿 नवनीत निकुरे सादर करतो', heroSub:'आपल्या प्रिय गावाचे डिजिटल घर — चंद्रपूर, महाराष्ट्र',
+      heroBtn1:'आमच्याबद्दल जाणून घ्या →', heroBtn2:'📰 ताज्या बातम्या',
+      aboutLabel:'आमची कहाणी', aboutTitle:'आमच्याबद्दल', aboutTitleHi:'आमचं गाव',
+      newsLabel:'ताज्या बातम्या', newsTitle:'गावातील बातम्या', newsTitleHi:'📰 बातम्या',
+      galleryLabel:'आमचं गाव', galleryTitle:'फोटो गॅलरी', galleryTitleHi:'हमारा गाँव',
+      contactLabel:'आमचा पत्ता', contactTitle:'संपर्क', contactTitleHi:'पत्ता',
+      noNews:'अजून बातम्या नाहीत. Admin panel मधून बातमी add करा!', noPhotos:'अजून फोटो नाहीत. Admin panel मधून photo add करा!'
+    },
+    hi: {
+      navHome:'होम', navAbout:'हमारे बारे में', navNews:'खबरें', navGallery:'गैलरी', navContact:'संपर्क',
+      heroTitle:'अपना गाँव<br>तोलेवाही', heroTagline:'हमारा गाँव, हमारी पहचान',
+      heroBadge:'🌿 नवनीत निकुरे प्रस्तुत', heroSub:'हमारे प्रिय गाँव का डिजिटल घर — चंद्रपुर, महाराष्ट्र',
+      heroBtn1:'हमारे बारे में जानें →', heroBtn2:'📰 ताज़ा खबर',
+      aboutLabel:'हमारी कहानी', aboutTitle:'हमारे बारे में', aboutTitleHi:'हमारा गाँव',
+      newsLabel:'ताज़ा खबर', newsTitle:'गाँव की खबरें', newsTitleHi:'📰 खबरें',
+      galleryLabel:'हमारा गाँव', galleryTitle:'गैलरी', galleryTitleHi:'हमारा गाँव',
+      contactLabel:'हमें खोजें', contactTitle:'हमारा पता', contactTitleHi:'पता',
+      noNews:'अभी कोई खबर नहीं है। Admin से खबर डलवाएं!', noPhotos:'अभी कोई फोटो नहीं है। Admin panel से photo add करें!'
+    }
+  };
+
+  window.setLang = function(lang) {
+    window.currentLang = lang;
+    const t = translations[lang];
+    document.getElementById('langLabel').textContent = lang.toUpperCase();
+    document.getElementById('langMenu').classList.remove('open');
+    const navAs = document.querySelectorAll('.nav-links a');
+    if(navAs[0]) navAs[0].textContent = t.navHome;
+    if(navAs[1]) navAs[1].textContent = t.navAbout;
+    if(navAs[2]) navAs[2].textContent = t.navNews;
+    if(navAs[3]) navAs[3].textContent = t.navGallery;
+    if(navAs[4]) navAs[4].textContent = t.navContact;
+    const heroTitleEn = document.querySelector('.hero-title-en');
+    if(heroTitleEn) heroTitleEn.innerHTML = t.heroTitle;
+    const heroTagline = document.querySelector('.hero-tagline');
+    if(heroTagline) heroTagline.textContent = t.heroTagline;
+    const heroBadge = document.querySelector('.hero-badge');
+    if(heroBadge) heroBadge.textContent = t.heroBadge;
+    const heroSub = document.querySelector('.hero-sub');
+    if(heroSub) heroSub.textContent = t.heroSub;
+    const heroBtns = document.querySelectorAll('.btn-primary-hero');
+    if(heroBtns[0]) heroBtns[0].textContent = t.heroBtn1;
+    if(heroBtns[1]) heroBtns[1].innerHTML = t.heroBtn2;
+    const sectionLabels = document.querySelectorAll('.section-label');
+    const sectionTitles = document.querySelectorAll('.section-title');
+    const sectionTitlesHi = document.querySelectorAll('.section-title-hi');
+    if(sectionLabels[0]) sectionLabels[0].textContent = t.aboutLabel;
+    if(sectionTitles[0]) sectionTitles[0].textContent = t.aboutTitle;
+    if(sectionTitlesHi[0]) sectionTitlesHi[0].textContent = t.aboutTitleHi;
+    if(sectionLabels[1]) sectionLabels[1].textContent = t.newsLabel;
+    if(sectionTitles[1]) sectionTitles[1].textContent = t.newsTitle;
+    if(sectionTitlesHi[1]) sectionTitlesHi[1].textContent = t.newsTitleHi;
+    if(sectionLabels[3]) sectionLabels[3].textContent = t.galleryLabel;
+    if(sectionTitles[3]) sectionTitles[3].textContent = t.galleryTitle;
+    if(sectionTitlesHi[3]) sectionTitlesHi[3].textContent = t.galleryTitleHi;
+    if(sectionLabels[4]) sectionLabels[4].textContent = t.contactLabel;
+    if(sectionTitles[4]) sectionTitles[4].textContent = t.contactTitle;
+    if(sectionTitlesHi[4]) sectionTitlesHi[4].textContent = t.contactTitleHi;
+    renderNews(); renderImages();
+  }
+
+  window.toggleLang = function() {
+    document.getElementById('langMenu').classList.toggle('open');
+  }
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.lang-dropdown')) document.getElementById('langMenu').classList.remove('open');
+  });
+
+  // ===== SLIDER =====
+  window.renderSlider = function() {
+    const slides = allSliders;
+    const el = document.getElementById('heroSlider');
+    const track = document.getElementById('sliderTrack');
+    const dots = document.getElementById('sliderDots');
+    const countEl = document.getElementById('sliderCount');
+    if (!slides.length) { el.style.display='none'; return; }
+    el.style.display = 'block';
+    const sliderH = window.innerWidth <= 600 ? 220 : (window.innerWidth <= 900 ? 280 : 320);
+    track.innerHTML = slides.map(s => `
+      <div style="min-width:100%;position:relative;height:${sliderH}px;overflow:hidden;flex-shrink:0">
+        <img src="${escHtml(s.url)}" alt="${escHtml(s.caption||'')}" style="width:100%;height:${sliderH}px;object-fit:cover;display:block">
+        ${s.caption ? `<div style="position:absolute;bottom:28px;left:0;right:0;text-align:center;color:white;font-size:0.88rem;font-weight:700;text-shadow:0 2px 8px rgba(0,0,0,0.8);padding:0 50px;background:linear-gradient(transparent,rgba(0,0,0,0.45));padding-top:30px">${escHtml(s.caption)}</div>` : ''}
+      </div>`).join('');
+    if (slides.length <= 12) {
+      dots.innerHTML = slides.map((_,i) => `<span onclick="goSlide(${i})" style="width:8px;height:8px;border-radius:50%;background:${i===window.sliderIndex?'white':'rgba(255,255,255,0.4)'};cursor:pointer;display:block;border:2px solid rgba(255,255,255,0.7);transition:background .3s;flex-shrink:0"></span>`).join('');
+    } else {
+      dots.innerHTML = '';
+    }
+    if (countEl) countEl.textContent = `${window.sliderIndex+1} / ${slides.length}`;
+    goSlide(window.sliderIndex < slides.length ? window.sliderIndex : 0);
+  }
+
+  window.goSlide = function(i) {
+    const slides = allSliders;
+    if (!slides.length) return;
+    window.sliderIndex = (i + slides.length) % slides.length;
+    document.getElementById('sliderTrack').style.transform = `translateX(-${window.sliderIndex*100}%)`;
+    const dotSpans = document.querySelectorAll('#sliderDots span');
+    dotSpans.forEach((d,idx) => d.style.background = idx===window.sliderIndex ? 'white' : 'rgba(255,255,255,0.4)');
+    const countEl = document.getElementById('sliderCount');
+    if (countEl) countEl.textContent = `${window.sliderIndex+1} / ${slides.length}`;
+    clearInterval(window.sliderTimer);
+    window.sliderTimer = setInterval(() => goSlide(window.sliderIndex+1), 4000);
+  }
+  window.sliderPrev = function() { goSlide(window.sliderIndex-1); }
+  window.sliderNext = function() { goSlide(window.sliderIndex+1); }
+
+  window.handleSliderFile = function(input) {
+    const files = Array.from(input.files);
+    if (!files.length) return;
+    let loaded = 0;
+    const results = [];
+    files.forEach((file, idx) => {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        results[idx] = e.target.result;
+        loaded++;
+        if (loaded === files.length) {
+          document.getElementById('sliderPreview').src = results[0];
+          document.getElementById('sliderFileName').textContent = files.length > 1 ? `${files.length} photos selected` : files[0].name;
+          document.getElementById('sliderPreviewWrap').style.display = 'block';
+          document.getElementById('addSliderBtn').disabled = false;
+          document.getElementById('addSliderBtn').style.opacity = '1';
+          document.getElementById('addSliderBtn').textContent = `🎠 ${files.length > 1 ? files.length + ' Photos' : 'Photo'} Slider मध्ये Add करा`;
+          input._pendingDataUrls = results;
+          input._pendingFiles = files;
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  window.addSliderImage = async function() {
+    const fileInput = document.getElementById('imgFileInputSlider');
+    const dataUrls = fileInput._pendingDataUrls || [];
+    const caption = document.getElementById('sliderCaption').value.trim();
+    if (!dataUrls.length) { alert('कृपया आधी photo निवडा.'); return; }
+    showLoading(`⏳ 0 / ${dataUrls.length} upload होत आहे...`);
+    document.getElementById('addSliderBtn').disabled = true;
+    try {
+      for (let i = 0; i < dataUrls.length; i++) {
+        showLoading(`⏳ ${i+1} / ${dataUrls.length} upload होत आहे...`);
+        const { url, publicId } = await uploadToCloudinary(dataUrls[i]);
+        await db.collection('slider').add( {
+          url,
+          publicId,
+          caption: dataUrls.length > 1 ? (caption ? caption + ' ' + (i+1) : '') : caption,
+          date: new Date().toISOString()
+        });
+      }
+      showToast(`✅ ${dataUrls.length} photo(s) slider मध्ये add झाले!`);
+    } catch(e) {
+      console.error(e);
+      showToast('❌ Error: ' + e.message, true);
+    }
+    hideLoading();
+    fileInput.value = '';
+    fileInput._pendingDataUrls = [];
+    fileInput._pendingFiles = [];
+    document.getElementById('sliderCaption').value = '';
+    document.getElementById('sliderPreviewWrap').style.display = 'none';
+    document.getElementById('addSliderBtn').disabled = true;
+    document.getElementById('addSliderBtn').style.opacity = '0.5';
+    document.getElementById('addSliderBtn').textContent = '🎠 Slider मध्ये Add करा';
+    renderSliderAdminList();
+  }
+
+  window.deleteSliderImage = async function(firestoreId) {
+    if (!confirm('Slider मधून हा photo काढायचा का?')) return;
+    showLoading('⏳ Delete होत आहे...');
+    try {
+      await db.collection('slider').doc(firestoreId).delete();
+      showToast('✅ Photo delete झाला!');
+    } catch(e) {
+      showToast('❌ Error: ' + e.message, true);
+    }
+    hideLoading();
+    renderSliderAdminList();
+  }
+
+  window.renderSliderAdminList = function() {
+    const slides = allSliders;
+    const el = document.getElementById('sliderAdminList');
+    if (!el) return;
+    if (!slides.length) { el.innerHTML='<p style="font-size:0.8rem;color:#aaa;text-align:center;padding:10px">कोणताही slider photo नाही</p>'; return; }
+    const header = `<div style="font-size:0.75rem;color:var(--green-deep);font-weight:700;margin-bottom:6px">📊 एकूण ${slides.length} photos slider मध्ये</div>`;
+    el.innerHTML = header + slides.map((s,i) => `
+      <div style="display:flex;align-items:center;gap:10px;padding:8px;border:1px solid #eee;border-radius:10px;margin-bottom:6px">
+        <span style="font-size:0.7rem;color:#aaa;font-weight:700;min-width:18px;text-align:center">${i+1}</span>
+        <img src="${escHtml(s.url)}" style="width:54px;height:38px;object-fit:cover;border-radius:7px;flex-shrink:0">
+        <div style="flex:1;font-size:0.78rem;color:var(--text-mid);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(s.caption||'(no caption)')}</div>
+        <button onclick="deleteSliderImage('${s.id}')" style="background:#dc2626;color:white;border:none;border-radius:8px;padding:4px 10px;cursor:pointer;font-size:0.75rem;font-weight:700;flex-shrink:0">✕</button>
+      </div>`).join('');
+  }
+
+  // ===== NEWS =====
+  window.renderNews = function() {
+    const news = allNews;
+    const t = translations[window.currentLang];
+    const nc = document.getElementById('newsContainer');
+    const statEl = document.getElementById('statNews');
+    if (statEl) statEl.textContent = news.length;
+    if (!nc) return;
+    if (!news.length) {
+      nc.innerHTML = `<div class="empty-state"><div class="icon">📰</div><p>${t.noNews}</p></div>`;
+      return;
+    }
+    nc.innerHTML = news.map((n,i) => `
+      <div class="news-card" style="animation-delay:${i*0.08}s">
+        ${n.photoUrl ? `<div style="width:100%;aspect-ratio:16/9;overflow:hidden;cursor:zoom-in" onclick="openLightbox('${escHtml(n.photoUrl)}')"><img src="${escHtml(n.photoUrl)}" alt="news photo" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s" onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'"></div>` : ''}
+        <div class="news-card-top">
+          <div class="news-category">${escHtml(n.category||'📢 News')}</div>
+          <div class="news-card-title">${escHtml(n.title)}</div>
+        </div>
+        <div class="news-card-body">
+          <p>${escHtml(n.content)}</p>
+          <div class="news-meta">
+            <span class="news-date">${fmtDate(n.date)}</span>
+            <button class="delete-news-btn" onclick="deleteNews('${n.id}')">✕ Delete</button>
+          </div>
+          <div class="news-share-row">
+            <span class="news-share-label">📤 Share:</span>
+            <a class="direct-share-btn dsb-wa" id="wabtn_${n.id}" href="#" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.554 4.12 1.522 5.856L0 24l6.335-1.493A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.371l-.36-.214-3.727.878.894-3.618-.235-.372A9.818 9.818 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg>
+              WhatsApp
+            </a>
+            <button class="direct-share-btn dsb-fb" onclick="smartShareFacebook(${JSON.stringify(n.title)}, ${JSON.stringify(n.content)}, ${JSON.stringify(n.photoUrl || '')})">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              Facebook
+            </button>
+            <button class="direct-share-btn dsb-copy" onclick="directCopyNews(${JSON.stringify(n.title)}, ${JSON.stringify(n.content)}, ${JSON.stringify(n.photoUrl || '')})">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+      </div>`).join('');
+
+    // WhatsApp <a> href set — test मध्ये काम केलेल्या method नुसार
+    news.forEach(n => {
+      const el = document.getElementById('wabtn_' + n.id);
+      if (!el) return;
+
+      // Format: photo URL (WhatsApp preview) + title + site name + link
+      // Image मध्ये दिसल्याप्रमाणे — Adhar News Network style
+      let text = '';
+      if (n.photoUrl) text += n.photoUrl + '\n\n';
+      text += '🔴 *' + n.title + '*\n\n';
+      text += '🌿 *' + SITE_NAME + '*\n\n';
+      text += '🔗 ' + SITE_URL;
+
+      const encoded = encodeURIComponent(text);
+      const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+      el.href = isMobile
+        ? 'whatsapp://send?text=' + encoded
+        : 'https://wa.me/?text=' + encoded;
+    });
+  }
+
+  window.addNews = async function() {
+    const title = document.getElementById('newsTitle').value.trim();
+    const content = document.getElementById('newsContent').value.trim();
+    const cat = document.getElementById('newsCategory').value;
+    if (!title||!content) { alert('Please fill title and content.'); return; }
+    showLoading('⏳ News publish होत आहे...');
+    try {
+      let photoUrl = null;
+      const photoInput = document.getElementById('newsPhotoInput');
+      const pendingDataUrl = photoInput._pendingDataUrl || null;
+      if (pendingDataUrl) {
+        showLoading('⏳ Photo upload होत आहे...');
+        const { url } = await uploadToCloudinary(pendingDataUrl);
+        photoUrl = url;
+      }
+      await db.collection('news').add( { title, content, category: cat, date: new Date().toISOString(), ...(photoUrl ? { photoUrl } : {}) });
+      showToast('✅ News publish झाली! सर्वांना दिसेल.');
+      document.getElementById('newsTitle').value='';
+      document.getElementById('newsContent').value='';
+      clearNewsPhoto();
+      closeAdmin();
+    } catch(e) {
+      showToast('❌ Error: ' + e.message, true);
+    }
+    hideLoading();
+  }
+
+  window.handleNewsPhoto = function(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('newsPhotoPreview').src = e.target.result;
+      document.getElementById('newsPhotoName').textContent = file.name;
+      document.getElementById('newsPhotoPreviewWrap').style.display = 'block';
+      document.getElementById('newsPhotoInput')._pendingDataUrl = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  window.clearNewsPhoto = function() {
+    document.getElementById('newsPhotoPreview').src = '';
+    document.getElementById('newsPhotoPreviewWrap').style.display = 'none';
+    document.getElementById('newsPhotoInput').value = '';
+    document.getElementById('newsPhotoInput')._pendingDataUrl = null;
+    document.getElementById('newsPhotoInputCamera').value = '';
+  }
+
+  window.deleteNews = async function(firestoreId) {
+    if (!confirm('Delete this news?')) return;
+    showLoading('⏳ Delete होत आहे...');
+    try {
+      await db.collection('news').doc(firestoreId).delete();
+      showToast('✅ News delete झाली!');
+    } catch(e) {
+      showToast('❌ Error: ' + e.message, true);
+    }
+    hideLoading();
+  }
+
+  async function uploadVideoToCloudinary(file, onProgress) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', CLOUDINARY_PRESET);
+      formData.append('resource_type', 'video');
+      xhr.open('POST', `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/video/upload`);
+      xhr.upload.onprogress = (e) => { if (e.lengthComputable && onProgress) onProgress(Math.round(e.loaded/e.total*100)); };
+      xhr.onload = () => {
+        if (xhr.status === 200) { const d = JSON.parse(xhr.responseText); resolve({ url: d.secure_url, publicId: d.public_id }); }
+        else reject(new Error('Cloudinary video upload failed'));
+      };
+      xhr.onerror = () => reject(new Error('Network error'));
+      xhr.send(formData);
+    });
+  }
+
+  // ===== VIDEO FUNCTIONS =====
+  window.handleVideoFile = function(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const videoEl = document.getElementById('videoPreview');
+    const url = URL.createObjectURL(file);
+    videoEl.src = url;
+    document.getElementById('videoFileName').textContent = file.name + ' (' + (file.size/1024/1024).toFixed(1) + ' MB)';
+    document.getElementById('videoPreviewWrap').style.display = 'block';
+    document.getElementById('addVideoBtn').disabled = false;
+    document.getElementById('addVideoBtn').style.opacity = '1';
+    input._pendingFile = file;
+  }
+
+  window.addVideo = async function() {
+    const fileInput = document.getElementById('videoFileInput').files[0]
+      ? document.getElementById('videoFileInput')
+      : document.getElementById('videoFileInputCamera');
+    const file = fileInput._pendingFile;
+    const caption = document.getElementById('videoCaption').value.trim();
+    if (!file) { alert('कृपया आधी video निवडा.'); return; }
+    document.getElementById('addVideoBtn').disabled = true;
+    document.getElementById('videoUploadProgress').style.display = 'block';
+    document.getElementById('videoProgressBar').style.width = '0%';
+    document.getElementById('videoProgressText').textContent = '0%';
+    try {
+      const { url, publicId } = await uploadVideoToCloudinary(file, (pct) => {
+        document.getElementById('videoProgressBar').style.width = pct + '%';
+        document.getElementById('videoProgressText').textContent = pct + '%';
+      });
+      await db.collection('videos').add( { url, publicId, caption, date: new Date().toISOString() });
+      showToast('✅ Video add झाला! सर्वांना दिसेल.');
+    } catch(e) {
+      showToast('❌ Error: ' + e.message, true);
+    }
+    document.getElementById('videoUploadProgress').style.display = 'none';
+    document.getElementById('videoPreviewWrap').style.display = 'none';
+    document.getElementById('videoPreview').src = '';
+    document.getElementById('videoCaption').value = '';
+    document.getElementById('addVideoBtn').disabled = true;
+    document.getElementById('addVideoBtn').style.opacity = '0.5';
+    document.getElementById('videoFileInput').value = '';
+    document.getElementById('videoFileInputCamera').value = '';
+    fileInput._pendingFile = null;
+    closeAdmin();
+  }
+
+  window.deleteVideo = async function(firestoreId) {
+    if (!confirm('हा video delete करायचा का?')) return;
+    showLoading('⏳ Delete होत आहे...');
+    try {
+      await db.collection('videos').doc(firestoreId).delete();
+      showToast('✅ Video delete झाला!');
+    } catch(e) {
+      showToast('❌ Error: ' + e.message, true);
+    }
+    hideLoading();
+  }
+
+  window.renderVideos = function() {
+    const videos = allVideos;
+    const vc = document.getElementById('videoContainer');
+    const noMsg = document.getElementById('noVideosMsg');
+    if (!vc) return;
+    if (!videos.length) {
+      vc.innerHTML = '';
+      if (noMsg) noMsg.style.display = 'block';
+      return;
+    }
+    if (noMsg) noMsg.style.display = 'none';
+    vc.innerHTML = videos.map((v, i) => `
+      <div class="video-card" style="animation-delay:${i*0.07}s">
+        <div class="video-thumb-wrap" onclick="openVideoLightbox('${escHtml(v.url)}')">
+          <video src="${escHtml(v.url)}" preload="metadata" muted playsinline style="pointer-events:none"></video>
+          <div class="video-play-btn">
+            <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="40" fill="rgba(0,0,0,0.5)"/><polygon points="32,22 62,40 32,58" fill="white"/></svg>
+          </div>
+        </div>
+        <div class="video-info">
+          ${v.caption ? `<div class="video-caption">${escHtml(v.caption)}</div>` : ''}
+          <div class="video-date">${fmtDate(v.date)}
+            <button class="video-delete-btn" onclick="deleteVideo('${v.id}')">✕ Delete</button>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+
+  window.openVideoLightbox = function(url) {
+    const lb = document.getElementById('videoLightbox');
+    const vid = document.getElementById('lbVideo');
+    vid.src = url;
+    lb.classList.add('open');
+    vid.play();
+  }
+  window.closeVideoLightbox = function() {
+    const lb = document.getElementById('videoLightbox');
+    const vid = document.getElementById('lbVideo');
+    vid.pause();
+    vid.src = '';
+    lb.classList.remove('open');
+  }
+
+  // ===== IMAGES =====
+  window.renderImages = function() {
+    const imgs = allImgs;
+    const t = translations[window.currentLang];
+    const ic = document.getElementById('imageContainer');
+    const lbl = document.getElementById('photoLabel');
+    const noMsg = document.getElementById('noPhotosMsg');
+    const statEl = document.getElementById('statPhotos');
+    if (statEl) statEl.textContent = imgs.length;
+    if (!ic) return;
+    if (lbl) lbl.style.display = imgs.length ? 'block' : 'none';
+    if (noMsg) noMsg.style.display = imgs.length ? 'none' : 'block';
+    if (!imgs.length) { ic.innerHTML = ''; return; }
+    ic.innerHTML = imgs.map((img,i) => `
+      <div class="img-card" style="animation-delay:${i*0.07}s" onclick="openLightbox('${escHtml(img.url)}')">
+        <img src="${escHtml(img.url)}" alt="${escHtml(img.caption||'')}" loading="lazy">
+        <div class="img-card-overlay">
+          ${img.caption?`<span style="color:white;font-size:0.85rem;font-weight:600;flex:1">${escHtml(img.caption)}</span>`:''}
+          <button class="delete-img-btn" onclick="event.stopPropagation();deleteImage('${img.id}')">✕</button>
+        </div>
+      </div>`).join('');
+  }
+
+  window.handleImageFile = function(input) {
+    const files = Array.from(input.files);
+    if (!files.length) return;
+    let loaded = 0;
+    const results = [];
+    files.forEach((file, idx) => {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        results[idx] = e.target.result;
+        loaded++;
+        if (loaded === files.length) {
+          document.getElementById('imgPreview').src = results[0];
+          document.getElementById('imgFileName').textContent = files.length > 1 ? `${files.length} photos selected` : files[0].name;
+          document.getElementById('imgPreviewWrap').style.display = 'block';
+          document.getElementById('addPhotoBtn').disabled = false;
+          document.getElementById('addPhotoBtn').style.opacity = '1';
+          document.getElementById('addPhotoBtn').textContent = `📸 ${files.length > 1 ? files.length + ' Photos' : 'Photo'} Add करा`;
+          input._pendingDataUrls = results;
+          input._pendingFiles = files;
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  window.addImage = async function() {
+    const fileInput = document.getElementById('imgFileInput');
+    const dataUrls = fileInput._pendingDataUrls || [];
+    const caption = document.getElementById('imgCaption').value.trim();
+    if (!dataUrls.length) { alert('कृपया आधी photo निवडा.'); return; }
+    showLoading(`⏳ 0 / ${dataUrls.length} upload होत आहे...`);
+    document.getElementById('addPhotoBtn').disabled = true;
+    try {
+      for (let i = 0; i < dataUrls.length; i++) {
+        showLoading(`⏳ ${i+1} / ${dataUrls.length} upload होत आहे...`);
+        const { url, publicId } = await uploadToCloudinary(dataUrls[i]);
+        await db.collection('images').add( {
+          url,
+          publicId,
+          caption: dataUrls.length > 1 ? (caption ? caption + ' ' + (i+1) : '') : caption,
+          date: new Date().toISOString()
+        });
+      }
+      showToast(`✅ ${dataUrls.length} photo(s) add झाले! सर्वांना दिसतील.`);
+    } catch(e) {
+      showToast('❌ Error: ' + e.message, true);
+    }
+    hideLoading();
+    fileInput.value = '';
+    fileInput._pendingDataUrls = [];
+    fileInput._pendingFiles = [];
+    document.getElementById('imgCaption').value = '';
+    document.getElementById('imgPreviewWrap').style.display = 'none';
+    document.getElementById('addPhotoBtn').disabled = true;
+    document.getElementById('addPhotoBtn').style.opacity = '0.5';
+    document.getElementById('addPhotoBtn').textContent = '📸 Photo Add करा';
+    closeAdmin();
+  }
+
+  window.deleteImage = async function(firestoreId) {
+    if (!confirm('Delete this photo?')) return;
+    showLoading('⏳ Delete होत आहे...');
+    try {
+      await db.collection('images').doc(firestoreId).delete();
+      showToast('✅ Photo delete झाला!');
+    } catch(e) {
+      showToast('❌ Error: ' + e.message, true);
+    }
+    hideLoading();
+  }
+
+  // ===== ADMIN =====
+  window.openAdmin = function() {
+    document.getElementById('adminModal').classList.add('open');
+    if (!window.isAdmin) {
+      document.getElementById('loginPanel').style.display='block';
+      document.getElementById('adminPanel').style.display='none';
+      document.getElementById('modalTitle').textContent='Admin Login';
+    }
+    setTimeout(()=>document.getElementById('passInput')?.focus(),100);
+  }
+  window.closeAdmin = function() { document.getElementById('adminModal').classList.remove('open'); }
+
+  window.login = function() {
+    if (document.getElementById('passInput').value === '20891815') {
+      window.isAdmin = true;
+      document.getElementById('loginPanel').style.display = 'none';
+      document.getElementById('adminPanel').style.display = 'block';
+      document.getElementById('modalTitle').textContent = 'Admin Panel';
+      document.getElementById('passInput').value = '';
+      document.body.classList.add('admin-mode');
+      document.getElementById('noticeBar').style.display = 'block';
+      renderSliderAdminList();
+    } else {
+      document.getElementById('passInput').value = '';
+      document.getElementById('passInput').placeholder = 'Wrong password!';
+      setTimeout(()=>document.getElementById('passInput').placeholder='Enter password', 1500);
+    }
+  }
+
+  window.logout = function() {
+    window.isAdmin = false;
+    document.body.classList.remove('admin-mode');
+    document.getElementById('noticeBar').style.display = 'none';
+    closeAdmin();
+  }
+
+  window.switchTab = function(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    if (id==='sliderTab') renderSliderAdminList();
+  }
+
+  window.openLightbox = function(url) { document.getElementById('lbImg').src=url; document.getElementById('lightbox').classList.add('open'); }
+  window.closeLightbox = function()   { document.getElementById('lightbox').classList.remove('open'); }
+
+  window.openCamera = function() { document.getElementById('imgFileInputCamera').click(); }
+  window.openCameraSlider = function() { document.getElementById('imgFileInputSliderCamera').click(); }
+
+  document.addEventListener('keydown', e => { if(e.key==='Escape'){closeLightbox();closeAdmin();closeVideoLightbox();} });
+  document.getElementById('adminModal').addEventListener('click', function(e){ if(e.target===this)closeAdmin(); });
+
+  // Nav
+  window.setActive = function(el) { document.querySelectorAll('.nav-links a,.mobile-menu a').forEach(a=>a.classList.remove('active')); el.classList.add('active'); }
+  window.toggleMenu = function()   { document.getElementById('mobileMenu').classList.toggle('open'); }
+  window.closeMobile = function(el){ setActive(el); document.getElementById('mobileMenu').classList.remove('open'); }
+
+  // Scroll spy
+  const sections = ['home','about','news','gallery','videos','contact'];
+  window.addEventListener('scroll',()=>{
+    let cur='';
+    sections.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-100)cur=id;});
+    document.querySelectorAll('.nav-links a').forEach(a=>{a.classList.remove('active');if(a.getAttribute('href')==='#'+cur)a.classList.add('active');});
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+  // Slider auto-resize
+  window.addEventListener('resize', () => { renderSlider(); });
+
+  // ===== SHARE FUNCTIONS =====
+  const SITE_NAME = 'Apna Gaon Tolewahi';
+  const SITE_URL  = 'https://roshanmahadore4-gif.github.io/Apala-gaon-Tolewahi-/';
+
+  window.smartShareWhatsApp = function(title, content, photoUrl) {
+    // फक्त शीर्षक + shortcut (50 chars) + link + photo
+    const shortcut = content.length > 80 ? content.substring(0, 80) + '...' : content;
+    let text = '📰 *' + title + '*'
+      + '\n\n' + shortcut
+      + '\n\n🔗 *वाचा पूर्ण बातमी:*\n' + SITE_URL;
+    if (photoUrl) text += '\n\n' + photoUrl;
+
+    // Direct anchor click — Chrome वर guaranteed काम करतो
+    const a = document.createElement('a');
+    a.href = 'https://wa.me/?text=' + encodeURIComponent(text);
+    a.target = '_blank';
+    a.rel = 'noopener';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => document.body.removeChild(a), 500);
+  }
+
+  window.smartShareFacebook = function(title, content, photoUrl) {
+    const quote = '📰 ' + title + '\n\n' + content
+      + (photoUrl ? '\n\n📸 ' + photoUrl : '')
+      + '\n\n🌿 ' + SITE_NAME;
+    const url = 'https://www.facebook.com/sharer/sharer.php?u='
+      + encodeURIComponent(SITE_URL)
+      + '&quote=' + encodeURIComponent(quote);
+    const a = document.createElement('a');
+    a.href = url;
+    a.setAttribute('target', '_blank');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  window.directCopyNews = function(title, content, photoUrl) {
+    const text = '📰 *' + title + '*\n\n' + content
+      + (photoUrl ? '\n\n📸 ' + photoUrl : '')
+      + '\n\n🌿 ' + SITE_NAME + '\n🔗 ' + SITE_URL;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(showShareCopied);
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta);
+      ta.select(); document.execCommand('copy');
+      document.body.removeChild(ta);
+      showShareCopied();
+    }
+  }
+
+  function showShareCopied() {
+    let t = document.getElementById('shareCopiedToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'shareCopiedToast';
+      t.className = 'share-copied-toast';
+      t.textContent = '✅ बातमी copy झाली!';
+      document.body.appendChild(t);
+    }
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  window.setShareLinks = function() {};
+
+  // ===== START =====
+  startRealtimeListeners();
+  window.sliderTimer = setInterval(() => goSlide(window.sliderIndex+1), 4000);
+
+</script>
+</body>
+</html>
